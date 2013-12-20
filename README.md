@@ -1,4 +1,4 @@
-# jit-grunt
+# jit-grunt [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Loading grunt plugins just in time.
 Grunt load time very fast.
