@@ -73,3 +73,7 @@ Total 1s
 ```
 npm install jit-grunt --save-dev
 ```
+
+## Example
+https://github.com/shootaroo/jit-grunt/blob/master/.gruntplugins
+https://github.com/shootaroo/jit-grunt/blob/master/Gruntfile.js
