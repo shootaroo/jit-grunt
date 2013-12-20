@@ -1,0 +1,39 @@
+{
+  "name": "jit-grunt",
+  "version": "0.0.1",
+  "description": "Loading grunt plugin just in time.",
+  "keywords": [
+    "grunt",
+    "jit",
+    "tasks",
+    "plugins"
+  ],
+  "homepage": "https://github.com/shootaroo/jit-grunt",
+  "bugs": "https://github.com/shootaroo/jit-grunt/issues",
+  "license": "MIT",
+  "author": {
+    "name": "shootaroo",
+    "email": "shotaro.tsubouchi@gmail.com"
+  },
+  "files": [
+    "jit-grunt.js"
+  ],
+  "main": "jit-grunt",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shootaroo/jit-grunt.git"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "dependencies": {
+    "lodash": "~2.4.1"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-jshint": "~0.7.2"
+  },
+  "engines": {
+    "node": ">=0.8.0"
+  }
+}
