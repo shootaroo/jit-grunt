@@ -52,8 +52,10 @@ Have a pleasant grunt life!
 
 
 ## Install
+
+*NOTE: I can not publish to npm with an error now. Please npm install from GitHub.*
 ```
-npm install jit-grunt --save-dev
+npm install https://github.com/shootaroo/jit-grunt/archive/v0.1.0.tar.gz --save-dev
 ```
 
 ## Usage
