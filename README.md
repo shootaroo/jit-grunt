@@ -71,5 +71,5 @@ Total 1s
 
 ## Install
 ```
-npm install lazyload-grunt --save-dev
+npm install jit-grunt --save-dev
 ```
