@@ -51,6 +51,7 @@ and
   "jshint": "grunt-contrib-jshint",
   "uglify": "grunt-contrib-uglify",
   "watch": "grunt-contrib-watch",
+  ...
 }
 ```
 
