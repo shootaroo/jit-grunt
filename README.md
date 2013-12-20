@@ -22,8 +22,7 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 $ grunt lint --verbose
 ...
 Execution Time (2013-12-20 08:56:18 UTC)
-loading tasks       7s  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88%
+loading tasks       7s  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88%
 lint               1ms  0%
 htmlhint:dev       0ms  0%
 htmlhint:dev_pc  875ms  ■■■■■■■■■■ 11%
@@ -62,8 +61,7 @@ Execution Time (2013-12-20 08:57:09 UTC)
 loading tasks    158ms  ■■■■■■■■■■■■ 13%
 lint             105ms  ■■■■■■■■ 9%
 htmlhint:dev       0ms  0%
-htmlhint:dev_pc  867ms  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■
-■■■■■■■■■■■■■■ 72%
+htmlhint:dev_pc  867ms  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 72%
 htmlhint:dev_sp   10ms  ■ 1%
 csslint:dev       29ms  ■■■ 2%
 jshint:dev        37ms  ■■■ 3%
