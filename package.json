@@ -1,7 +1,7 @@
 {
   "name": "jit-grunt",
-  "version": "0.0.1",
-  "description": "Loading grunt plugin just in time.",
+  "version": "0.1.0",
+  "description": "JIT plugin loader for grunt.",
   "keywords": [
     "grunt",
     "jit",
