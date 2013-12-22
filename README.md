@@ -1,6 +1,6 @@
 # jit-grunt 0.1 [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-A JIT(Jast In Time) plugin loader for grunt.  
+A JIT(Just In Time) plugin loader for grunt.  
 Grunt load time is not slow plug-in even if many.
 
 
