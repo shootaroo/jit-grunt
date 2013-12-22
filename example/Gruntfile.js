@@ -29,6 +29,13 @@ module.exports = function (grunt) {
         }
       }
     },
+    concat: {
+      concat: {
+        files: {
+          '<%= app.build %>/js/common.js': ['<%= app.build %>/lib/jquery/jquery.js']
+        }
+      }
+    },
     jshint: {
       options: {
         jshintrc: true
@@ -37,5 +44,5 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean', 'assemble', 'bower', 'newer:jshint']);
+  grunt.registerTask('default', ['clean', 'assemble', 'bower', 'concat', 'newer:jshint']);
 };
