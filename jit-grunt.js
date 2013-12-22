@@ -3,7 +3,7 @@ module.exports = function (grunt, plugins) {
   var path = require('path');
 
   var PREFIXES = ['', 'grunt-', 'grunt-contrib-'];
-  var loaded = [];
+  var loaded = {};
   var root = path.resolve('node_modules');
 
 
@@ -25,7 +25,7 @@ module.exports = function (grunt, plugins) {
     tasks = Array.isArray(tasks) ? tasks : [tasks];
     tasks.forEach(function (task) {
       var taskName = task.split(':')[0];
-      if (loaded.indexOf(taskName) !== -1) {
+      if (loaded.hasOwnProperty(taskName)) {
         return;
       }
       if (!plugins.hasOwnProperty(taskName) || !loadPlugin(plugins[taskName])) {
