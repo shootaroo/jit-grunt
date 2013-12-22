@@ -25,7 +25,7 @@ module.exports = function (grunt, plugins) {
     tasks = Array.isArray(tasks) ? tasks : [tasks];
     tasks.forEach(function (task) {
       var taskName = task.split(':')[0];
-      if (loaded.hasOwnProperty(taskName)) {
+      if (loaded.indexOf(taskName) !== -1) {
         return;
       }
       if (!plugins.hasOwnProperty(taskName) || !loadPlugin(plugins[taskName])) {
