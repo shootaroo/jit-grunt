@@ -10,7 +10,7 @@ module.exports = function (grunt, plugins) {
   var loadPlugin = function (name) {
     var tasksDir = path.join(root, name, 'tasks');
     if (grunt.file.exists(tasksDir)) {
-      grunt.log.write('\nLoading "' + name + '" plugin...');
+      grunt.log.write('\nLoading', name.underline.cyan, 'plugin...');
       grunt.loadTasks(tasksDir);
       grunt.log.ok();
       return true;
