@@ -1,7 +1,6 @@
 'use strict';
 module.exports = function (grunt, plugins) {
   var path = require('path');
-  var chalk = require('chalk');
 
   var PREFIXES = ['', 'grunt-', 'grunt-contrib-'];
   var loaded = {};
@@ -11,7 +10,7 @@ module.exports = function (grunt, plugins) {
   var loadPlugin = function (name) {
     var tasksDir = path.join(root, name, 'tasks');
     if (grunt.file.exists(tasksDir)) {
-      grunt.log.write('\nLoading', chalk.underline.yellow(name), 'plugin...');
+      grunt.log.write('\nLoading', name.underline.cyan, 'plugin...');
       grunt.loadTasks(tasksDir);
       grunt.log.ok();
       return true;
