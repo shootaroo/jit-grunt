@@ -19,16 +19,15 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 ```
 
 ```
-$ grunt lint --verbose
+$ grunt assemble
 ...
-Execution Time (2013-12-20 08:56:18 UTC)
-loading tasks       7s  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 88%
-lint               1ms  0%
-htmlhint:dev     875ms  ■■■■■■■■■■ 11%
-csslint:dev       35ms  0%
-jshint:dev        30ms  0%
+Execution Time (2013-12-24 03:00:40 UTC)
+loading tasks     7s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 86%
+assemble:compile  1s  ▇▇▇▇▇▇▇▇▇▇▇▇ 14%
 Total 8s
 ```
+
+umm...
 
 
 ### After
@@ -37,14 +36,11 @@ require('jit-grunt')(grunt);
 ```
 
 ```
-$ grunt lint --verbose
-
-Execution Time (2013-12-20 08:57:09 UTC)
-loading tasks    158ms  ■■■■■■■■■■■■ 13%
-lint             105ms  ■■■■■■■■ 9%
-htmlhint:dev     867ms  ■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■ 73%
-csslint:dev       29ms  ■■■ 2%
-jshint:dev        37ms  ■■■ 3%
+$ grunt assemble
+...
+Execution Time (2013-12-24 03:01:51 UTC)
+loading tasks     330ms  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 23%
+assemble:compile     1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 76%
 Total 1s
 ```
 
