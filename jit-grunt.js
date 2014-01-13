@@ -20,23 +20,20 @@ module.exports = function (grunt, plugins) {
 
   plugins = plugins || {};
 
-  var run = grunt.task.run;
-  grunt.task.run = function (tasks) {
-    tasks = Array.isArray(tasks) ? tasks : [tasks];
-    tasks.forEach(function (task) {
-      var taskName = task.split(':')[0];
-      if (loaded.hasOwnProperty(taskName)) {
-        return;
-      }
-      if (!plugins.hasOwnProperty(taskName) || !loadPlugin(plugins[taskName])) {
-        for (var i = PREFIXES.length; i--;) {
-          if (loadPlugin(PREFIXES[i] + taskName)) {
-            break;
-          }
+  var _taskPlusArgs = grunt.util.task.Task.prototype._taskPlusArgs;
+  grunt.util.task.Task.prototype._taskPlusArgs = function(name) {
+    var taskName = name.split(':')[0];
+    if (loaded.hasOwnProperty(taskName)) {
+      return _taskPlusArgs.call(this, name);
+    }
+    if (!plugins.hasOwnProperty(taskName) || !loadPlugin(plugins[taskName])) {
+      for (var i = PREFIXES.length; i--;) {
+        if (loadPlugin(PREFIXES[i] + taskName)) {
+          break;
         }
       }
-      loaded[taskName] = true;
-    });
-    run.apply(grunt.task, arguments);
+    }
+    loaded[taskName] = true;
+    return _taskPlusArgs.call(this, name);
   };
 };
