@@ -1,4 +1,4 @@
-# jit-grunt 0.1 [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# jit-grunt 0.2 [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 A JIT(Just In Time) plugin loader for grunt.  
 Grunt load time is not slow plug-in even if many.
@@ -21,7 +21,7 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 ```
 $ grunt assemble
 ...
-Execution Time (2013-12-24 03:00:40 UTC)
+Execution Time (2014-01-13 11:27:40 UTC)
 loading tasks     7s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 86%
 assemble:compile  1s  ▇▇▇▇▇▇▇▇▇▇▇▇ 14%
 Total 8s
@@ -38,8 +38,8 @@ require('jit-grunt')(grunt);
 ```
 $ grunt assemble
 ...
-Execution Time (2013-12-24 03:01:51 UTC)
-loading tasks     330ms  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 23%
+Execution Time (2014-01-13 11:28:57 UTC)
+loading assemble  330ms  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 23%
 assemble:compile     1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 76%
 Total 1s
 ```
