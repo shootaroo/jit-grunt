@@ -21,10 +21,10 @@ grunt.loadNpmTasks('grunt-contrib-watch');
 ```
 $ grunt assemble
 ...
-Execution Time (2014-01-13 11:27:40 UTC)
-loading tasks     7s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 86%
-assemble:compile  1s  ▇▇▇▇▇▇▇▇▇▇▇▇ 14%
-Total 8s
+Execution Time (2014-01-14 02:52:59 UTC)
+loading tasks     5.7s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 84%
+assemble:compile  1.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 16%
+Total 6.8s
 ```
 
 umm...
@@ -38,10 +38,11 @@ require('jit-grunt')(grunt);
 ```
 $ grunt assemble
 ...
-Execution Time (2014-01-13 11:28:57 UTC)
-loading assemble  330ms  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 23%
-assemble:compile     1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 76%
-Total 1s
+Execution Time (2014-01-14 02:53:34 UTC)
+loading tasks     111ms  ▇▇▇▇▇▇▇▇▇ 8%
+loading assemble  221ms  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 16%
+assemble:compile   1.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇ 77%
+Total 1.4s
 ```
 
 Have a pleasant grunt life!
