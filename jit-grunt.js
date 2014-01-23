@@ -29,9 +29,9 @@ module.exports = function (grunt, plugins) {
   function loadPlugin(name) {
     var _nameArgs = grunt.task.current.nameArgs;
     grunt.task.current.nameArgs = 'loading ' + name;
-    grunt.log.header('Loading "' + name + '" plugin');
+    grunt.verbose.header('Loading "' + name + '" plugin');
     grunt.loadTasks(path.join(MODULES_ROOT, name, 'tasks'));
-    grunt.log.ok('Plugin loaded.');
+    grunt.verbose.ok('Plugin loaded.');
     grunt.task.current.nameArgs = _nameArgs;
   }
 
