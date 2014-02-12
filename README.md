@@ -1,7 +1,7 @@
 # jit-grunt 0.2 [![NPM version](https://badge.fury.io/js/jit-grunt.png)](http://badge.fury.io/js/jit-grunt) [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
-A JIT(Just In Time) plugin loader for grunt.  
-Grunt load time is not slow plug-in even if many.
+A JIT(Just In Time) plugin loader for Grunt.  
+Load time of Grunt does not slow down even if there are many plugins.
 
 
 ### Before
@@ -45,7 +45,7 @@ assemble:compile   1.1s  ▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇▇�
 Total 1.4s
 ```
 
-Have a pleasant grunt life!
+Have a pleasant Grunt life!
 
 
 ## Install
@@ -53,21 +53,36 @@ Have a pleasant grunt life!
 npm install jit-grunt --save-dev
 ```
 
+
 ## Usage
 
-### Simple usage
-```js
-require('jit-grunt')(grunt);
-```
+Removes `grunt.loadNpmTasks`, then add the `require('jit-grunt')(grunt)` instead. Only it.
 
-Auto mapping plugin name from task name, search order is
-+ `grunt-contrib-<task name>`
-+ `grunt-<task name>`
-+ `<task name>`
+```js
+module.exports = function (grunt) {
+  require('jit-grunt')(grunt);
+
+  grunt.initConfig({
+    ...
+  });
+
+  grunt.registerTask('default', [...]);
+}
+```
+Will automatically search for the plugin from the task name.
+Searching in the following order:
+
+1. grunt-contrib-`Task Name`
+2. grunt-`Task Name`
+3. `Task Name`
 
 
 ### Static mappings
-Second parameter is static mappings `<task name>: <plugin name>`.
+Second parameter is static mappings.  
+It is used when there is a plugin that can not be resolved in the automatic mapping.
+
+`Task Name`: `Plugin Name`
+
 ```js
 require('jit-grunt')(grunt, {
   bower: 'grunt-bower-task',
@@ -75,7 +90,9 @@ require('jit-grunt')(grunt, {
 });
 ```
 
+
 ## Example
+
 https://github.com/shootaroo/jit-grunt/tree/master/example
 
 
