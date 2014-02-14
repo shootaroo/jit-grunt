@@ -15,6 +15,8 @@ grunt.loadNpmTasks('grunt-contrib-less');
 grunt.loadNpmTasks('grunt-contrib-jshint');
 grunt.loadNpmTasks('grunt-contrib-uglify');
 grunt.loadNpmTasks('grunt-contrib-watch');
+grunt.loadNpmTasks('grunt-newer');
+grunt.loadNpmTasks('grunt-wget');
 ...
 ```
 
@@ -85,7 +87,6 @@ It is used when there is a plugin that can not be resolved in the automatic mapp
 
 ```js
 require('jit-grunt')(grunt, {
-  bower: 'grunt-bower-task',
   sprite: 'grunt-spritesmith'
 });
 ```

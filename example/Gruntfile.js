@@ -2,9 +2,7 @@
 module.exports = function (grunt) {
 
   require('time-grunt')(grunt);
-  require('../jit-grunt')(grunt, {
-    'bower': 'grunt-bower-task'
-  });
+  require('jit-grunt')(grunt);
 
   grunt.initConfig({
     app: {
@@ -22,17 +20,19 @@ module.exports = function (grunt) {
         dest: '<%= app.build %>'
       }
     },
-    bower: {
-      install: {
-        options: {
-          targetDir: '<%= app.build %>/lib'
-        }
+    wget: {
+      lib: {
+        src: [
+          'http://code.jquery.com/jquery-2.1.0.js',
+          'https://raw2.github.com/jashkenas/underscore/1.6.0/underscore.js'
+        ],
+        dest: '<%= app.build %>/lib'
       }
     },
     concat: {
       concat: {
         files: {
-          '<%= app.build %>/js/common.js': ['<%= app.build %>/lib/jquery/jquery.js']
+          '<%= app.build %>/js/common.js': ['<%= app.build %>/lib/*.js']
         }
       }
     },
@@ -44,5 +44,5 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean', 'assemble', 'bower', 'concat', 'newer:jshint']);
+  grunt.registerTask('default', ['clean', 'assemble', 'wget', 'concat', 'newer:jshint']);
 };
