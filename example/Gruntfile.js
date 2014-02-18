@@ -21,19 +21,17 @@ module.exports = function (grunt) {
       }
     },
     wget: {
-      lib: {
+      jquery: {
+        options: {
+          baseUrl: 'http://code.jquery.com/'
+        },
         src: [
-          'http://code.jquery.com/jquery-2.1.0.js',
-          'https://raw2.github.com/jashkenas/underscore/1.6.0/underscore.js'
+          'jquery-2.1.0.js',
+          'jquery-2.1.0.min.js',
+          'jquery-1.11.0.js',
+          'jquery-1.11.0.min.js'
         ],
         dest: '<%= app.build %>/lib'
-      }
-    },
-    concat: {
-      concat: {
-        files: {
-          '<%= app.build %>/js/common.js': ['<%= app.build %>/lib/*.js']
-        }
       }
     },
     jshint: {
@@ -44,5 +42,5 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['clean', 'assemble', 'wget', 'concat', 'newer:jshint']);
+  grunt.registerTask('default', ['clean', 'assemble', 'wget', 'newer:jshint']);
 };

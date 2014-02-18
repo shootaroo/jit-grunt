@@ -7,7 +7,7 @@
     "grunt-contrib-concat": "~0.3.0",
     "grunt-contrib-jshint": "~0.8.0",
     "grunt-newer": "~0.6.0",
-    "grunt-wget": "~0.0.1",
+    "grunt-wget": "~0.1.0",
     "jit-grunt": "~0.2.0",
     "time-grunt": "~0.2.9"
   }
