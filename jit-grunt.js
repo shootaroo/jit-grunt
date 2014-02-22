@@ -61,16 +61,11 @@ module.exports = function (grunt, plugins) {
 
   // Override _taskPlusArgs
   grunt.util.task.Task.prototype._taskPlusArgs = function(name) {
-    // Get task name / argument parts.
     var parts = this.splitArgs(name);
-    // Start from the end, not the beginning!
     var i = parts.length;
     var task;
     do {
-      // Get a task.
       task = this._tasks[parts.slice(0, i).join(':')];
-      // If the task doesn't exist, decrement `i`, and if `i` is greater than
-      // 0, repeat.
     } while (!task && --i > 0);
 
     // Proxy task.
@@ -79,12 +74,9 @@ module.exports = function (grunt, plugins) {
       i = 1;
     }
 
-    // Just the args.
     var args = parts.slice(i);
-    // Maybe you want to use them as flags instead of as positional args?
     var flags = {};
     args.forEach(function(arg) { flags[arg] = true; });
-    // The task to run and the args to run it with.
     return {task: task, nameArgs: name, args: args, flags: flags};
   };
 };
