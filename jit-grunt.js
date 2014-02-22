@@ -24,6 +24,12 @@ module.exports = function (grunt, plugins) {
         return pluginName;
       }
     }
+
+    grunt.log.writeln();
+    grunt.log.writeln('jit-grunt: Plugin for the "'.yellow + taskName.yellow + '" task not found.'.yellow);
+    grunt.log.writeln('If you have installed the plugin already, please setting the static mapping.'.yellow);
+    grunt.log.writeln('See'.yellow, 'https://github.com/shootaroo/jit-grunt#static-mappings'.cyan);
+    grunt.log.writeln();
   }
 
   function loadPlugin(name) {
