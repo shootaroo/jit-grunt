@@ -122,5 +122,4 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/shootaroo/jit-grunt/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
+[![Analytics](https://ga-beacon.appspot.com/UA-570209-10/shootaroo/jit-grunt)](https://github.com/igrigorik/ga-beacon)
