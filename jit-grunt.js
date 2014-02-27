@@ -18,8 +18,11 @@ module.exports = function (grunt, plugins) {
     if (plugins.hasOwnProperty(taskName) && existsPlugin(plugins[taskName])) {
       return plugins[taskName];
     }
+
+    var dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
+
     for (var p = PREFIXES.length; p--;) {
-      var pluginName = PREFIXES[p] + taskName;
+      var pluginName = PREFIXES[p] + dashedName;
       if (existsPlugin(pluginName)) {
         return pluginName;
       }
