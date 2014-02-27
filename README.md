@@ -74,16 +74,24 @@ module.exports = function (grunt) {
 Will automatically search for the plugin from the task name.
 Searching in the following order:
 
-1. grunt-contrib-`Task Name`
-2. grunt-`Task Name`
-3. `Task Name`
+1. grunt-contrib-`task-name`
+2. grunt-`task-name`
+3. `task-name`
+
+```
+clean           -> grunt-contrib-clean
+wget            -> grunt-wget
+mochaTest       -> grunt-mocha-test
+mocha_phantomjs -> grunt-mocha-phantomjs
+assemble        -> assemble
+```
 
 
 ### Static mappings
 Second parameter is static mappings.  
 It is used when there is a plugin that can not be resolved in the automatic mapping.
 
-`Task Name`: `Plugin Name`
+`taskname`: `grunt-plugin-name`
 
 ```js
 require('jit-grunt')(grunt, {
