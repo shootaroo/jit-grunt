@@ -12,7 +12,7 @@ module.exports = function (grunt, plugins) {
   var taskLoaders = {};
 
   function findPlugin(taskName) {
-    if (plugins.hasOwnProperty(taskName) && path.join(MODULES_ROOT, plugins[taskName], 'tasks')) {
+    if (plugins.hasOwnProperty(taskName) && fs.existsSync(path.join(MODULES_ROOT, plugins[taskName], 'tasks'))) {
       return plugins[taskName];
     }
 
