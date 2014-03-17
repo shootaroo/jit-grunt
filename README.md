@@ -74,16 +74,18 @@ module.exports = function (grunt) {
 Will automatically search for the plugin from the task name.
 Searching in the following order:
 
-1. grunt-contrib-`task-name`
-2. grunt-`task-name`
-3. `task-name`
+1. tasks/`taskname`.js
+2. node_modules/grunt-contrib-`task-name`
+3. node_modules/grunt-`task-name`
+4. node_modules/`task-name`
 
 ```
-clean           -> grunt-contrib-clean
-wget            -> grunt-wget
-mochaTest       -> grunt-mocha-test
-mocha_phantomjs -> grunt-mocha-phantomjs
-assemble        -> assemble
+clean           -> node_modules/grunt-contrib-clean
+wget            -> node_modules/grunt-wget
+mochaTest       -> node_modules/grunt-mocha-test
+mocha_phantomjs -> node_modules/grunt-mocha-phantomjs
+assemble        -> node_modules/assemble
+custom          -> tasks/custom.js
 ```
 
 

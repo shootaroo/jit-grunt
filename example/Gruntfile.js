@@ -2,7 +2,7 @@
 module.exports = function (grunt) {
 
   require('time-grunt')(grunt);
-  require('jit-grunt')(grunt);
+  require('../jit-grunt')(grunt);
 
   grunt.initConfig({
     app: {
@@ -39,8 +39,14 @@ module.exports = function (grunt) {
         jshintrc: true
       },
       all: '*.js'
+    },
+    custom1: {
+      say: {}
+    },
+    custom2: {
+      say: {}
     }
   });
 
-  grunt.registerTask('default', ['clean', 'assemble', 'wget', 'newer:jshint']);
+  grunt.registerTask('default', ['clean', 'custom1', 'assemble', 'wget', 'custom2', 'newer:jshint']);
 };

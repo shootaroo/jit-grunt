@@ -5,26 +5,28 @@ var path = require('path');
 var MODULES_ROOT = path.resolve('node_modules');
 var PREFIXES = ['', 'grunt-', 'grunt-contrib-'];
 
-function existsPlugin(name) {
-  return fs.existsSync(path.join(MODULES_ROOT, name, 'tasks'));
-}
-
 module.exports = function (grunt, plugins) {
   plugins = plugins || {};
 
   var taskProxies = {};
+  var taskLoaders = {};
 
   function findPlugin(taskName) {
-    if (plugins.hasOwnProperty(taskName) && existsPlugin(plugins[taskName])) {
+    if (plugins.hasOwnProperty(taskName) && path.join(MODULES_ROOT, plugins[taskName], 'tasks')) {
       return plugins[taskName];
+    }
+
+    if (fs.existsSync(path.join('tasks', taskName + '.js'))) {
+      return createLoader('custom tasks', 'tasks');
     }
 
     var dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
 
     for (var p = PREFIXES.length; p--;) {
       var pluginName = PREFIXES[p] + dashedName;
-      if (existsPlugin(pluginName)) {
-        return pluginName;
+      var taskPath = path.join(MODULES_ROOT, pluginName, 'tasks');
+      if (fs.existsSync(taskPath)) {
+        return createLoader(pluginName, taskPath);
       }
     }
 
@@ -35,13 +37,15 @@ module.exports = function (grunt, plugins) {
     grunt.log.writeln();
   }
 
-  function loadPlugin(name) {
-    var _nameArgs = grunt.task.current.nameArgs;
-    grunt.task.current.nameArgs = 'loading ' + name;
-    grunt.verbose.header('Loading "' + name + '" plugin');
-    grunt.loadTasks(path.join(MODULES_ROOT, name, 'tasks'));
-    grunt.verbose.ok('Plugin loaded.');
-    grunt.task.current.nameArgs = _nameArgs;
+  function createLoader(name, path) {
+    return taskLoaders[name] ? function () {} : taskLoaders[name] = function () {
+      var _nameArgs = grunt.task.current.nameArgs;
+      grunt.task.current.nameArgs = 'loading ' + name;
+      grunt.verbose.header('Loading "' + name);
+      grunt.loadTasks(path);
+      grunt.verbose.ok('Plugin loaded.');
+      grunt.task.current.nameArgs = _nameArgs;
+    };
   }
 
   function createProxy(taskName) {
@@ -49,13 +53,13 @@ module.exports = function (grunt, plugins) {
       return taskProxies[taskName];
     }
 
-    var pluginName = findPlugin(taskName);
-    if (pluginName) {
+    var loader = findPlugin(taskName);
+    if (loader) {
 
       var proxy = taskProxies[taskName] = {
         name: taskName,
         fn: function () {
-          loadPlugin(pluginName);
+          loader();
           var task = grunt.task._tasks[taskName];
           if (!task) {
             return new Error('Task "' + taskName + '" failed.');
