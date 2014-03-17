@@ -12,8 +12,13 @@ module.exports = function (grunt, plugins) {
   var taskLoaders = {};
 
   function findPlugin(taskName) {
-    if (plugins.hasOwnProperty(taskName) && fs.existsSync(path.join(MODULES_ROOT, plugins[taskName], 'tasks'))) {
-      return plugins[taskName];
+    var pluginName, taskPath;
+    if (plugins.hasOwnProperty(taskName)) {
+      pluginName = plugins[taskName];
+      taskPath = path.join(MODULES_ROOT, pluginName, 'tasks');
+      if (fs.existsSync(taskPath)) {
+        return createLoader(pluginName, taskPath);
+      }
     }
 
     if (fs.existsSync(path.join('tasks', taskName + '.js'))) {
@@ -23,8 +28,8 @@ module.exports = function (grunt, plugins) {
     var dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
 
     for (var p = PREFIXES.length; p--;) {
-      var pluginName = PREFIXES[p] + dashedName;
-      var taskPath = path.join(MODULES_ROOT, pluginName, 'tasks');
+      pluginName = PREFIXES[p] + dashedName;
+      taskPath = path.join(MODULES_ROOT, pluginName, 'tasks');
       if (fs.existsSync(taskPath)) {
         return createLoader(pluginName, taskPath);
       }
