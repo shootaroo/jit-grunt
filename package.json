@@ -1,12 +1,11 @@
 {
   "name": "jit-grunt",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "JIT plugin loader for Grunt.",
   "keywords": [
     "grunt",
-    "jit",
-    "tasks",
-    "plugins"
+    "gruntplugin",
+    "jit"
   ],
   "homepage": "https://github.com/shootaroo/jit-grunt",
   "bugs": "https://github.com/shootaroo/jit-grunt/issues",
@@ -16,6 +15,7 @@
     "email": "shotaro.tsubouchi@gmail.com"
   },
   "files": [
+    "lib",
     "jit-grunt.js"
   ],
   "main": "jit-grunt",
@@ -32,8 +32,11 @@
     "grunt-contrib-jshint": "~0.10.0",
     "grunt-espower": "~0.5.0",
     "grunt-mocha-test": "~0.10.0",
-    "power-assert": "~0.3.0",
+    "power-assert": "~0.4.0",
     "sinon": "~1.9.0"
+  },
+  "peerDependencies": {
+    "grunt": "~0.4.0"
   },
   "engines": {
     "node": ">=0.8.0"
