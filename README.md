@@ -74,10 +74,9 @@ module.exports = function (grunt) {
 Will automatically search for the plugin from the task name.
 Searching in the following order:
 
-1. tasks/`taskname`.js
-2. node_modules/grunt-contrib-`task-name`
-3. node_modules/grunt-`task-name`
-4. node_modules/`task-name`
+1. node_modules/grunt-contrib-`task-name`
+2. node_modules/grunt-`task-name`
+3. node_modules/`task-name`
 
 ```
 clean           -> node_modules/grunt-contrib-clean
@@ -100,6 +99,15 @@ require('jit-grunt')(grunt, {
   sprite: 'grunt-spritesmith'
 });
 ```
+
+### JIT Loading custom tasks (replacement of [grunt.loadTasks])
+Using `loadTasks` option.
+```js
+require('jit-grunt')(grunt)({
+  loadTasks: 'tasksDir'
+});
+```
+Searching rule: `tasksDir`/`taskname`.js
 
 
 ## Example
@@ -130,3 +138,6 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+
+[grunt.loadTasks]:http://gruntjs.com/api/grunt#grunt.loadtasks
