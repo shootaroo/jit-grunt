@@ -1,17 +1,25 @@
 'use strict';
 module.exports = function (grunt) {
 
-  require('./jit-grunt')(grunt);
+  require('./jit-grunt')(grunt, {
+    jscs: 'grunt-jscs-checker'
+  });
 
   grunt.initConfig({
     clean: {
       build: 'build'
     },
+    jscs: {
+      options: {
+        config: '.jscsrc'
+      },
+      all: ['*.js', '{lib,test}/**/*.js']
+    },
     jshint: {
       options: {
         jshintrc: true
       },
-      all: ['*.js', 'lib/**/*.js', 'test/**/*.js']
+      all: ['*.js', '{lib,test}/**/*.js']
     },
     espower: {
       test: {
@@ -32,5 +40,5 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('default', ['jshint', 'espower', 'mochaTest']);
+  grunt.registerTask('default', ['jscs', 'jshint', 'espower', 'mochaTest']);
 };

@@ -8,9 +8,9 @@ var jit = require('../lib/jit-grunt')(grunt);
 var sinon = require('sinon');
 var stub = sinon.stub(jit, 'exists');
 
-describe('Plugin find', function() {
+describe('Plugin find', function () {
 
-  beforeEach(function() {
+  beforeEach(function () {
     jit.loadTasks = undefined;
     stub.reset();
   });
