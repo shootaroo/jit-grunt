@@ -2,8 +2,10 @@
 module.exports = function (grunt) {
 
   require('time-grunt')(grunt);
-  require('../jit-grunt')(grunt)({
-    loadTasks: 'tasks'
+  require('../jit-grunt')(grunt, {
+    custom3: 'static/custom.js'
+  })({
+    loadTasks: 'custom'
   });
 
   grunt.initConfig({
@@ -47,8 +49,11 @@ module.exports = function (grunt) {
     },
     custom2: {
       say: {}
+    },
+    custom3: {
+      say: {}
     }
   });
 
-  grunt.registerTask('default', ['clean', 'custom1', 'assemble', 'wget', 'custom2', 'newer:jshint']);
+  grunt.registerTask('default', ['clean', 'custom1', 'assemble', 'wget', 'custom2', 'newer:jshint', 'custom3']);
 };
