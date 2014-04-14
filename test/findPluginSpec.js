@@ -118,4 +118,22 @@ describe('Plugin find', function () {
     assert(!stub.calledWith(path.resolve('node_modules/grunt-bar/tasks')));
     assert(!stub.calledWith(path.resolve('node_modules/bar/tasks')));
   });
+
+  it('Static mapping for custom task', function () {
+    jit.mappings = {
+      foo: 'custom/foo.js'
+    };
+
+    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
+    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
+    stub.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
+    stub.withArgs(path.resolve('custom/foo.js')).returns(true);
+
+    assert(jit.findPlugin('foo'));
+
+    assert(stub.calledWith(path.resolve('custom/foo.js')));
+    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+  });
 });
