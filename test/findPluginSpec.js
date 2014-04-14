@@ -12,6 +12,9 @@ describe('Plugin find', function () {
 
   beforeEach(function () {
     jit.loadTasks = undefined;
+    jit.mappings = {
+      bar: 'grunt-foo'
+    };
     stub.reset();
   });
 
@@ -99,5 +102,19 @@ describe('Plugin find', function () {
     assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
     assert(stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
     assert(stub.calledWith(path.resolve('node_modules/foo/tasks')));
+  });
+
+  it('Static mapping', function () {
+    stub.withArgs(path.resolve('node_modules/grunt-contrib-bar/tasks')).returns(false);
+    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
+    stub.withArgs(path.resolve('node_modules/grunt-bar/tasks')).returns(false);
+    stub.withArgs(path.resolve('node_modules/bar/tasks')).returns(false);
+
+    assert(jit.findPlugin('bar'));
+
+    assert(stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-bar/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/grunt-bar/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/bar/tasks')));
   });
 });
