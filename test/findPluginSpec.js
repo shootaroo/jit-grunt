@@ -1,12 +1,13 @@
 /* global describe, beforeEach, it */
 'use strict';
+var fs = require('fs');
 var path = require('path');
 var assert = require('power-assert');
 var grunt = require('grunt');
 var jit = require('../lib/jit-grunt')(grunt);
 
 var sinon = require('sinon');
-var stub = sinon.stub(jit, 'exists');
+var stub = sinon.stub(fs, 'existsSync');
 
 describe('Plugin find', function () {
 
