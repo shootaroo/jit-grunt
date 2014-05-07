@@ -14,6 +14,9 @@ module.exports = function (grunt, mappings) {
     if (options.customTasksDir) {
       jit.customTasksDir = path.resolve(options.customTasksDir);
     }
+
+    if (options.pluginsRoot) {
+      jit.pluginsRoot = path.resolve(options.pluginsRoot);
     }
   };
 };

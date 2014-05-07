@@ -103,6 +103,19 @@ require('jit-grunt')(grunt, {
 
 ### Options
 
+#### pluginsRoot
+
+Type: `String`  
+Default: `'node_modules'`
+
+Root directory of grunt plugins.
+
+```js
+require('jit-grunt')(grunt)({
+  pluginsRoot: 'other/dir'
+});
+```
+
 #### customTasksDir
 
 Type: `String`  

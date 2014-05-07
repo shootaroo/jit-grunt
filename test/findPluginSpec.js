@@ -16,6 +16,7 @@ describe('Plugin find', function () {
     jit.mappings = {
       bar: 'grunt-foo'
     };
+    jit.pluginsRoot = path.resolve('node_modules');
     stub.reset();
   });
 
@@ -135,5 +136,19 @@ describe('Plugin find', function () {
     assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
     assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
     assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+  });
+
+  it('Other node_modules dir', function () {
+    jit.pluginsRoot = path.resolve('other/dir');
+
+    stub.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
+    stub.withArgs(path.resolve('other/dir/grunt-foo/tasks')).returns(false);
+    stub.withArgs(path.resolve('other/dir/foo/tasks')).returns(true);
+
+    assert(jit.findPlugin('foo'));
+
+    assert(stub.calledWith(path.resolve('other/dir/grunt-contrib-foo/tasks')));
+    assert(stub.calledWith(path.resolve('other/dir/grunt-foo/tasks')));
+    assert(stub.calledWith(path.resolve('other/dir/foo/tasks')));
   });
 });
