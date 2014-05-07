@@ -84,18 +84,7 @@ wget            -> node_modules/grunt-wget
 mochaTest       -> node_modules/grunt-mocha-test
 mocha_phantomjs -> node_modules/grunt-mocha-phantomjs
 assemble        -> node_modules/assemble
-custom          -> tasks/custom.js
 ```
-
-
-### JIT Loading custom tasks (replacement of [grunt.loadTasks])
-Using `loadTasks` option.
-```js
-require('jit-grunt')(grunt)({
-  loadTasks: 'tasksDir'
-});
-```
-Searching rule: `tasksDir`/`taskname`.js
 
 
 ### Static mappings
@@ -110,6 +99,28 @@ require('jit-grunt')(grunt, {
   hello: 'custom/say-hello.js'    // for custom tasks.
 });
 ```
+
+
+### Options
+
+#### customTasksDir
+
+Type: `String`  
+Default: `null`
+
+JIT Loading for custom tasks dir (replacement of [grunt.loadTasks]).
+
+```js
+require('jit-grunt')(grunt)({
+  customTasksDir: 'custom/dir'
+});
+```
+Searching to: `custom/dir`/`taskname`.js
+
+
+#### loadTasks
+
+Alias to `customTasksDir`.
 
 
 ## Example

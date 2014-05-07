@@ -12,7 +12,7 @@ var stub = sinon.stub(fs, 'existsSync');
 describe('Plugin find', function () {
 
   beforeEach(function () {
-    jit.loadTasks = undefined;
+    jit.customTasksDir = undefined;
     jit.mappings = {
       bar: 'grunt-foo'
     };
@@ -81,7 +81,7 @@ describe('Plugin find', function () {
   });
 
   it('Custom task', function () {
-    jit.loadTasks = path.resolve('custom');
+    jit.customTasksDir = path.resolve('custom');
 
     stub.withArgs(path.resolve('custom/foo.js')).returns(true);
 

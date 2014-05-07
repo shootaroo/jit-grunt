@@ -8,7 +8,12 @@ module.exports = function (grunt, mappings) {
     options = options || {};
 
     if (options.loadTasks) {
-      jit.loadTasks = path.resolve(options.loadTasks);
+      jit.customTasksDir = path.resolve(options.loadTasks);
+    }
+
+    if (options.customTasksDir) {
+      jit.customTasksDir = path.resolve(options.customTasksDir);
+    }
     }
   };
 };
