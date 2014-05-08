@@ -1,11 +1,12 @@
 {
   "name": "jit-grunt",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "JIT plugin loader for Grunt.",
   "keywords": [
     "grunt",
     "gruntplugin",
-    "jit"
+    "jit",
+    "loader"
   ],
   "homepage": "https://github.com/shootaroo/jit-grunt",
   "bugs": "https://github.com/shootaroo/jit-grunt/issues",
