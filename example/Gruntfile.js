@@ -52,8 +52,11 @@ module.exports = function (grunt) {
     },
     custom3: {
       say: {}
+    },
+    custom4: {
+      say: {}
     }
   });
 
-  grunt.registerTask('default', ['clean', 'custom1', 'assemble', 'wget', 'custom2', 'newer:jshint', 'custom3']);
+  grunt.registerTask('default', ['clean', 'custom1', 'assemble', 'wget', 'custom2', 'newer:jshint', 'custom3', 'custom4']);
 };

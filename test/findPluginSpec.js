@@ -94,6 +94,21 @@ describe('Plugin find', function () {
     assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
   });
 
+  it('Custom task: CoffeeScript', function () {
+    jit.customTasksDir = path.resolve('custom');
+
+    stub.withArgs(path.resolve('custom/foo.js')).returns(false);
+    stub.withArgs(path.resolve('custom/foo.coffee')).returns(true);
+
+    assert(jit.findPlugin('foo'));
+
+    assert(stub.calledWith(path.resolve('custom/foo.js')));
+    assert(stub.calledWith(path.resolve('custom/foo.coffee')));
+    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
+    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+  });
+
   it('not Found', function () {
     stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
     stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
