@@ -144,6 +144,28 @@ Alias to `customTasksDir`.
 https://github.com/shootaroo/jit-grunt/tree/master/example
 
 
+## Release History
+
+- 2014-05-19   v0.7.0   Support custom task by CoffeeScript.
+- 2014-05-08   v0.6.0   Add option customTasksDir and pluginsRoot.
+- 2014-04-14   v0.5.0   Support static mappings for custom tasks.
+- 2014-04-14   v0.4.2   Fix loadTasks path.
+- 2014-04-14   v0.4.2   Fix loadTasks path.
+- 2014-04-09   v0.4.1   Revert path.resolve.
+- 2014-04-09   v0.4.0   Add loadTasks option.
+- 2014-03-17   v0.3.2   Fix grunt.loadTask bug.
+- 2014-03-17   v0.3.1   Fix grunt.loadTask bug.
+- 2014-03-17   v0.3.0   Support grunt.loadTasks.
+- 2014-02-27   v0.2.3   Support task name of camelCase and snake_case.
+- 2014-02-22   v0.2.2   Add plugin not found log.
+- 2014-01-23   v0.2.1   Change log to verbose.
+- 2014-01-13   v0.2.0   Load timing became JIT perfectly, and support time-grunt result.
+- 2013-12-24   v0.1.2   Log colored.
+- 2013-12-23   v0.1.1   Fix bug on grunt-contrib-concat.
+- 2013-12-21   v0.1.0   Support auto mappings.
+- 2013-12-20   v0.0.1   First release.
+
+
 ## License
 
 The MIT License (MIT)
