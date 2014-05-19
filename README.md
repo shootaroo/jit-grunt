@@ -150,7 +150,6 @@ https://github.com/shootaroo/jit-grunt/tree/master/example
 - 2014-05-08   v0.6.0   Add option customTasksDir and pluginsRoot.
 - 2014-04-14   v0.5.0   Support static mappings for custom tasks.
 - 2014-04-14   v0.4.2   Fix loadTasks path.
-- 2014-04-14   v0.4.2   Fix loadTasks path.
 - 2014-04-09   v0.4.1   Revert path.resolve.
 - 2014-04-09   v0.4.0   Add loadTasks option.
 - 2014-03-17   v0.3.2   Fix grunt.loadTask bug.
