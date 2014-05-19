@@ -72,7 +72,7 @@ module.exports = function (grunt) {
 }
 ```
 Will automatically search for the plugin from the task name.
-Searching in the following order:
+Search in the following order:
 
 1. node_modules/grunt-contrib-`task-name`
 2. node_modules/grunt-`task-name`
@@ -128,8 +128,11 @@ require('jit-grunt')(grunt)({
   customTasksDir: 'custom/dir'
 });
 ```
-Searching to: `custom/dir`/`taskname`.js
 
+Search in the following order:
+
+1. `custom/dir`/`taskname`.js
+2. `custom/dir`/`taskname`.coffee
 
 #### loadTasks
 
