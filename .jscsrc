@@ -8,5 +8,6 @@
   "disallowSpacesInNamedFunctionExpression": {
     "beforeOpeningRoundBrace": true
   },
-  "validateIndentation": 2
+  "validateIndentation": 2,
+  "maximumLineLength": 120
 }
