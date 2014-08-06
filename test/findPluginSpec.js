@@ -7,7 +7,8 @@ var grunt = require('grunt');
 var jit = require('../lib/jit-grunt')(grunt);
 
 var sinon = require('sinon');
-var stub = sinon.stub(fs, 'existsSync');
+var existsSync = sinon.stub(fs, 'existsSync');
+var loadPlugin = sinon.stub(jit, 'loadPlugin');
 
 describe('Plugin find', function () {
 
@@ -17,122 +18,110 @@ describe('Plugin find', function () {
       bar: 'grunt-foo'
     };
     jit.pluginsRoot = path.resolve('node_modules');
-    stub.reset();
+    existsSync.reset();
+    loadPlugin.reset();
   });
 
   it('grunt-contrib-foo', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(true);
-    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['grunt-contrib-foo', path.resolve('node_modules/grunt-contrib-foo/tasks')]);
   });
 
   it('grunt-foo', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
-    stub.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
-    stub.returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['grunt-foo', path.resolve('node_modules/grunt-foo/tasks')]);
   });
 
   it('foo', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/foo/tasks')).returns(true);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('node_modules/foo/tasks')]);
   });
 
-  it('fooBar', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo-bar/tasks')).returns(true);
-    stub.withArgs(path.resolve('node_modules/foo-bar/tasks')).returns(false);
+  it('CamelCase', function () {
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo-bar/tasks')).returns(true);
 
-    assert(jit.findPlugin('fooBar'));
+    jit.findPlugin('fooBar');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/grunt-foo-bar/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/foo-bar/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['grunt-foo-bar', path.resolve('node_modules/grunt-foo-bar/tasks')]);
   });
 
-  it('foo_bar', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo-bar/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/foo-bar/tasks')).returns(true);
+  it('snake_case', function () {
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo-bar/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/foo-bar/tasks')).returns(true);
 
-    assert(jit.findPlugin('foo_bar'));
+    jit.findPlugin('foo_bar');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/grunt-foo-bar/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/foo-bar/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo-bar', path.resolve('node_modules/foo-bar/tasks')]);
   });
 
   it('Custom task', function () {
     jit.customTasksDir = path.resolve('custom');
 
-    stub.withArgs(path.resolve('custom/foo.js')).returns(true);
+    existsSync.withArgs(path.resolve('custom/foo.js')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('custom/foo.js')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('custom/foo.js'), true]);
   });
 
   it('Custom task: CoffeeScript', function () {
     jit.customTasksDir = path.resolve('custom');
 
-    stub.withArgs(path.resolve('custom/foo.js')).returns(false);
-    stub.withArgs(path.resolve('custom/foo.coffee')).returns(true);
+    existsSync.withArgs(path.resolve('custom/foo.js')).returns(false);
+    existsSync.withArgs(path.resolve('custom/foo.coffee')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('custom/foo.js')));
-    assert(stub.calledWith(path.resolve('custom/foo.coffee')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('custom/foo.coffee'), true]);
   });
 
   it('not Found', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
 
-    assert(!jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert(loadPlugin.callCount === 0);
   });
 
   it('Static mapping', function () {
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-bar/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
-    stub.withArgs(path.resolve('node_modules/grunt-bar/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/bar/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-bar/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
 
-    assert(jit.findPlugin('bar'));
+    jit.findPlugin('bar');
 
-    assert(stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-bar/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-bar/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/bar/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['grunt-foo', path.resolve('node_modules/grunt-foo/tasks')]);
   });
 
   it('Static mapping for custom task', function () {
@@ -140,30 +129,29 @@ describe('Plugin find', function () {
       foo: 'custom/foo.js'
     };
 
-    stub.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('custom/foo.js')).returns(true);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('custom/foo.js')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('custom/foo.js')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-contrib-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/grunt-foo/tasks')));
-    assert(!stub.calledWith(path.resolve('node_modules/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('custom/foo.js'), true]);
   });
 
   it('Other node_modules dir', function () {
     jit.pluginsRoot = path.resolve('other/dir');
 
-    stub.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('other/dir/grunt-foo/tasks')).returns(false);
-    stub.withArgs(path.resolve('other/dir/foo/tasks')).returns(true);
+    existsSync.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('other/dir/grunt-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('other/dir/foo/tasks')).returns(true);
 
-    assert(jit.findPlugin('foo'));
+    jit.findPlugin('foo');
 
-    assert(stub.calledWith(path.resolve('other/dir/grunt-contrib-foo/tasks')));
-    assert(stub.calledWith(path.resolve('other/dir/grunt-foo/tasks')));
-    assert(stub.calledWith(path.resolve('other/dir/foo/tasks')));
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['foo', path.resolve('other/dir/foo/tasks')]);
   });
 });
