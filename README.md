@@ -1,4 +1,4 @@
-# jit-grunt 0.7.1 [![NPM version](https://badge.fury.io/js/jit-grunt.png)](http://badge.fury.io/js/jit-grunt) [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# jit-grunt 0.8.0 [![NPM version](https://badge.fury.io/js/jit-grunt.png)](http://badge.fury.io/js/jit-grunt) [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 A JIT(Just In Time) plugin loader for Grunt.  
 Load time of Grunt does not slow down even if there are many plugins.
@@ -146,6 +146,7 @@ https://github.com/shootaroo/jit-grunt/tree/master/example
 
 ## Release History
 
+- 2014-08-07   v0.8.0   Support grunt.registerTask in plugin #19.
 - 2014-08-07   v0.7.1   Fix log output.
 - 2014-05-19   v0.7.0   Support custom task by CoffeeScript.
 - 2014-05-08   v0.6.0   Add option customTasksDir and pluginsRoot.
