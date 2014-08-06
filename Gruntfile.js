@@ -1,9 +1,7 @@
 'use strict';
 module.exports = function (grunt) {
 
-  require('./jit-grunt')(grunt, {
-    jscs: 'grunt-jscs-checker'
-  });
+  require('./jit-grunt')(grunt);
 
   grunt.initConfig({
     clean: {
