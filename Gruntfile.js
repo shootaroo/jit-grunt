@@ -20,24 +20,16 @@ module.exports = function (grunt) {
       },
       all: ['*.js', '{lib,test}/**/*.js']
     },
-    espower: {
-      test: {
-        expand: true,
-        cwd: 'test/',
-        src: ['**/*.js'],
-        dest: 'build',
-        ext: '.js'
-      }
-    },
     mochaTest: {
+      options: {
+        reporter: 'spec',
+        require: 'intelli-espower-loader'
+      },
       test: {
-        options: {
-          reporter: 'spec'
-        },
-        src: ['build/**/*.js']
+        src: ['test/**/*.js']
       }
     }
   });
 
-  grunt.registerTask('default', ['jscs', 'jshint', 'espower', 'mochaTest']);
+  grunt.registerTask('default', ['jscs', 'jshint', 'mochaTest']);
 };
