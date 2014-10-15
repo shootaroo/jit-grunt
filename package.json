@@ -33,16 +33,15 @@
     "prepush": "npm test"
   },
   "devDependencies": {
-    "espower-loader": "~0.9.0",
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.10.0",
-    "grunt-jscs": "~0.6.0",
-    "grunt-mocha-test": "~0.11.0",
+    "grunt-jscs": "~0.7.0",
+    "grunt-mocha-test": "~0.12.0",
     "husky": "~0.6.0",
     "intelli-espower-loader": "~0.4.0",
-    "power-assert": "~0.7.0",
+    "power-assert": "~0.9.0",
     "sinon": "~1.10.0",
-    "time-grunt": "~0.4.0"
+    "time-grunt": "~1.0.0"
   },
   "peerDependencies": {
     "grunt": "~0.4.0"
