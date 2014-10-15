@@ -16,7 +16,7 @@ module.exports = function (grunt, mappings) {
     }
 
     if (options.pluginsRoot) {
-      jit.pluginsRoot = path.resolve(options.pluginsRoot);
+      jit.pluginsRoot = options.pluginsRoot;
     }
   };
 };
