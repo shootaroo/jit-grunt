@@ -147,6 +147,7 @@ https://github.com/shootaroo/jit-grunt/tree/master/example
 
 ## Release History
 
+- 2015-02-02   v0.9.1   Support npm private modules.
 - 2014-10-15   v0.9.0   Support parent directories of node_modules.
 - 2014-08-07   v0.8.0   Support grunt.registerTask in plugin #19.
 - 2014-08-07   v0.7.1   Fix log output.
