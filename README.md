@@ -1,4 +1,4 @@
-# jit-grunt 0.9.0 [![NPM version](https://badge.fury.io/js/jit-grunt.png)](http://badge.fury.io/js/jit-grunt) [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+# jit-grunt 0.9.1 [![NPM version](https://badge.fury.io/js/jit-grunt.png)](http://badge.fury.io/js/jit-grunt) [![Build Status](https://secure.travis-ci.org/shootaroo/jit-grunt.png?branch=master)](http://travis-ci.org/shootaroo/jit-grunt) [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 A JIT(Just In Time) plugin loader for Grunt.  
 Load time of Grunt does not slow down even if there are many plugins.
@@ -96,7 +96,8 @@ It is used when there is a plugin that can not be resolved in the automatic mapp
 ```js
 require('jit-grunt')(grunt, {
   sprite: 'grunt-spritesmith',
-  hello: 'custom/say-hello.js'    // for custom tasks.
+  foo: '@abc/grunt-foo',        // for private modules.
+  bar: 'custom/bar.js'          // for custom tasks.
 });
 ```
 
