@@ -138,6 +138,23 @@ describe('Plugin find', function () {
       ['grunt-foo', path.resolve('node_modules/grunt-foo/tasks')]);
   });
 
+  it('Static mapping for private module', function () {
+    jit.mappings = {
+      foo: '@abc/grunt-foo'
+    };
+
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/@abc/grunt-foo/tasks')).returns(true);
+
+    jit.findPlugin('foo');
+
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['@abc/grunt-foo', path.resolve('node_modules/@abc/grunt-foo/tasks')]);
+  });
+
   it('Static mapping for custom task', function () {
     jit.mappings = {
       foo: 'custom/foo.js'
