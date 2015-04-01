@@ -172,7 +172,7 @@ describe('Plugin find', function () {
       ['foo', path.resolve('custom/foo.js'), true]);
   });
 
-  it('Other node_modules dir', function () {
+  it('pluginsRoot', function () {
     jit.pluginsRoot = 'other/dir';
 
     existsSync.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
@@ -184,5 +184,20 @@ describe('Plugin find', function () {
     assert.deepEqual(
       loadPlugin.getCall(0).args,
       ['foo', path.resolve('other/dir/foo/tasks')]);
+  });
+
+  it('pluginsRoot and node_modules', function () {
+    jit.pluginsRoot = 'other/dir';
+
+    existsSync.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('other/dir/grunt-foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('other/dir/foo/tasks')).returns(false);
+    existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(true);
+
+    jit.findPlugin('foo');
+
+    assert.deepEqual(
+      loadPlugin.getCall(0).args,
+      ['grunt-contrib-foo', path.resolve('node_modules/grunt-contrib-foo/tasks')]);
   });
 });
