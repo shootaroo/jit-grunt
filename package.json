@@ -19,9 +19,6 @@
     "lib",
     "jit-grunt.js"
   ],
-  "directories": {
-    "test": "test/"
-  },
   "main": "jit-grunt",
   "repository": {
     "type": "git",
@@ -33,12 +30,12 @@
     "prepush": "npm test"
   },
   "devDependencies": {
+    "espower-babel": "^1.4.1",
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.11.0",
     "grunt-jscs": "~1.6.0",
     "grunt-mocha-test": "~0.12.0",
     "husky": "~0.7.0",
-    "intelli-espower-loader": "~0.4.0",
     "power-assert": "~0.10.0",
     "sinon": "~1.14.0",
     "time-grunt": "~1.1.0"

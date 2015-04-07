@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     mochaTest: {
       options: {
         reporter: 'spec',
-        require: 'intelli-espower-loader'
+        require: 'espower-babel/guess'
       },
       test: {
         src: ['test/**/*.js']
