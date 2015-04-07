@@ -5,18 +5,21 @@ module.exports = function (grunt) {
   require('./jit-grunt')(grunt);
 
   grunt.initConfig({
+
     jscs: {
       options: {
         config: '.jscsrc'
       },
-      all: ['*.js', '{lib,test}/**/*.js']
+      all: ['*.js', '{src,test}/**/*.js']
     },
+
     jshint: {
       options: {
         jshintrc: true
       },
-      all: ['*.js', '{lib,test}/**/*.js']
+      all: ['*.js', '{src,test}/**/*.js']
     },
+
     mochaTest: {
       options: {
         reporter: 'spec',

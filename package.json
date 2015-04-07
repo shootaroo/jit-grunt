@@ -25,11 +25,14 @@
     "url": "git://github.com/shootaroo/jit-grunt.git"
   },
   "scripts": {
-    "test": "grunt",
+    "build": "babel src --out-dir lib --source-maps-inline",
+    "watch": "babel src --out-dir lib --source-maps-inline --watch",
+    "test": "npm run build && grunt",
     "precommit": "npm test",
     "prepush": "npm test"
   },
   "devDependencies": {
+    "babel": "^5.0.0",
     "espower-babel": "^1.4.1",
     "grunt": "~0.4.0",
     "grunt-contrib-jshint": "~0.11.0",
