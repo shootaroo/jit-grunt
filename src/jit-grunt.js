@@ -11,7 +11,7 @@ var jit = {
 };
 
 
-jit.findUp = function (cwd, iterator) {
+jit.findUp = (cwd, iterator) => {
   var result = iterator(cwd);
   if (result) {
     return result;
@@ -30,61 +30,60 @@ jit.findPlugin = function (taskName) {
     if (pluginName.indexOf('/') >= 0 && pluginName.indexOf('@') !== 0) {
       taskPath = path.resolve(pluginName);
       if (fs.existsSync(taskPath)) {
-        return jit.loadPlugin(taskName, taskPath, true);
+        return this.loadPlugin(taskName, taskPath, true);
       }
     } else {
-      var dir = path.join(jit.pluginsRoot, pluginName, 'tasks');
-      taskPath = jit.findUp(path.resolve(), function (cwd) {
+      var dir = path.join(this.pluginsRoot, pluginName, 'tasks');
+      taskPath = this.findUp(path.resolve(), function (cwd) {
         var findPath = path.join(cwd, dir);
         return fs.existsSync(findPath) ? findPath : null;
       });
       if (taskPath) {
-        return jit.loadPlugin(pluginName, taskPath);
+        return this.loadPlugin(pluginName, taskPath);
       }
     }
   }
 
   // Custom Tasks
-  if (jit.customTasksDir) {
+  if (this.customTasksDir) {
     for (var i = EXTENSIONS.length; i--;) {
-      taskPath = path.join(jit.customTasksDir, taskName + EXTENSIONS[i]);
+      taskPath = path.join(this.customTasksDir, taskName + EXTENSIONS[i]);
       if (fs.existsSync(taskPath)) {
-        return jit.loadPlugin(taskName, taskPath, true);
+        return this.loadPlugin(taskName, taskPath, true);
       }
     }
   }
 
   // Auto Mappings
   var dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
-  taskPath = jit.findUp(path.resolve(), function (cwd) {
+  taskPath = this.findUp(path.resolve(), cwd => {
     for (var p = PREFIXES.length; p--;) {
       pluginName = PREFIXES[p] + dashedName;
-      var findPath = path.join(cwd, jit.pluginsRoot, pluginName, 'tasks');
+      var findPath = path.join(cwd, this.pluginsRoot, pluginName, 'tasks');
       if (fs.existsSync(findPath)) {
         return findPath;
       }
     }
   });
   if (taskPath) {
-    return jit.loadPlugin(pluginName, taskPath);
+    return this.loadPlugin(pluginName, taskPath);
   }
 
-  var log = jit.grunt.log.writeln;
-  log();
-  log('jit-grunt: Plugin for the "'.yellow + taskName.yellow + '" task not found.'.yellow);
-  log('If you have installed the plugin already, please setting the static mapping.'.yellow);
-  log('See'.yellow, 'https://github.com/shootaroo/jit-grunt#static-mappings'.cyan);
-  log();
+  this.grunt.log.writeln(`
+jit-grunt: Plugin for the "${taskName}" task not found.
+If you have installed the plugin already, please setting the static mapping.
+See`.yellow, `https://github.com/shootaroo/jit-grunt#static-mappings
+`.cyan);
 };
 
 
 jit.loadPlugin = function (name, path, isFile) {
-  var grunt = jit.grunt;
+  var grunt = this.grunt;
   var _write = grunt.log._write;
   var _nameArgs = grunt.task.current.nameArgs;
   grunt.task.current.nameArgs = 'loading ' + name;
-  if (jit.hideHeader) {
-    grunt.log._write = function () {};
+  if (this.hideHeader) {
+    grunt.log._write = () => {};
   }
   grunt.log.header('Loading "' + name + '" plugin');
   grunt.log._write = _write;
@@ -129,7 +128,7 @@ jit.proxy = function (name) {
 };
 
 
-module.exports = function factory(grunt, mappings) {
+module.exports = (grunt, mappings) => {
   if (!jit.grunt) {
     jit.grunt = grunt;
     jit.hideHeader = !grunt.option('verbose');
