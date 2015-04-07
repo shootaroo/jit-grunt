@@ -10,9 +10,9 @@ var sinon = require('sinon');
 var existsSync = sinon.stub(fs, 'existsSync');
 var loadPlugin = sinon.stub(jit, 'loadPlugin');
 
-describe('Plugin find', function () {
+describe('Plugin find', () => {
 
-  beforeEach(function () {
+  beforeEach(() => {
     jit.customTasksDir = undefined;
     jit.mappings = {
       bar: 'grunt-foo'
@@ -22,7 +22,7 @@ describe('Plugin find', function () {
     loadPlugin.reset();
   });
 
-  it('grunt-contrib-foo', function () {
+  it('grunt-contrib-foo', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(true);
 
     jit.findPlugin('foo');
@@ -32,7 +32,7 @@ describe('Plugin find', function () {
       ['grunt-contrib-foo', path.resolve('node_modules/grunt-contrib-foo/tasks')]);
   });
 
-  it('grunt-foo', function () {
+  it('grunt-foo', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
 
@@ -43,7 +43,7 @@ describe('Plugin find', function () {
       ['grunt-foo', path.resolve('node_modules/grunt-foo/tasks')]);
   });
 
-  it('foo', function () {
+  it('foo', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(true);
@@ -55,7 +55,7 @@ describe('Plugin find', function () {
       ['foo', path.resolve('node_modules/foo/tasks')]);
   });
 
-  it('CamelCase', function () {
+  it('CamelCase', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo-bar/tasks')).returns(true);
 
@@ -66,7 +66,7 @@ describe('Plugin find', function () {
       ['grunt-foo-bar', path.resolve('node_modules/grunt-foo-bar/tasks')]);
   });
 
-  it('snake_case', function () {
+  it('snake_case', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo-bar/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo-bar/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/foo-bar/tasks')).returns(true);
@@ -78,7 +78,7 @@ describe('Plugin find', function () {
       ['foo-bar', path.resolve('node_modules/foo-bar/tasks')]);
   });
 
-  it('Custom task', function () {
+  it('Custom task', () => {
     jit.customTasksDir = path.resolve('custom');
 
     existsSync.withArgs(path.resolve('custom/foo.js')).returns(true);
@@ -90,7 +90,7 @@ describe('Plugin find', function () {
       ['foo', path.resolve('custom/foo.js'), true]);
   });
 
-  it('Custom task: CoffeeScript', function () {
+  it('Custom task: CoffeeScript', () => {
     jit.customTasksDir = path.resolve('custom');
 
     existsSync.withArgs(path.resolve('custom/foo.js')).returns(false);
@@ -103,7 +103,7 @@ describe('Plugin find', function () {
       ['foo', path.resolve('custom/foo.coffee'), true]);
   });
 
-  it('findUp', function () {
+  it('findUp', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
@@ -116,7 +116,7 @@ describe('Plugin find', function () {
       ['grunt-contrib-foo', path.resolve('../node_modules/grunt-contrib-foo/tasks')]);
   });
 
-  it('not Found', function () {
+  it('not Found', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/foo/tasks')).returns(false);
@@ -127,7 +127,7 @@ describe('Plugin find', function () {
     assert(loadPlugin.callCount === 0);
   });
 
-  it('Static mapping', function () {
+  it('Static mapping', () => {
     existsSync.withArgs(path.resolve('node_modules/grunt-contrib-bar/tasks')).returns(false);
     existsSync.withArgs(path.resolve('node_modules/grunt-foo/tasks')).returns(true);
 
@@ -138,7 +138,7 @@ describe('Plugin find', function () {
       ['grunt-foo', path.resolve('node_modules/grunt-foo/tasks')]);
   });
 
-  it('Static mapping for private module', function () {
+  it('Static mapping for private module', () => {
     jit.mappings = {
       foo: '@abc/grunt-foo'
     };
@@ -155,7 +155,7 @@ describe('Plugin find', function () {
       ['@abc/grunt-foo', path.resolve('node_modules/@abc/grunt-foo/tasks')]);
   });
 
-  it('Static mapping for custom task', function () {
+  it('Static mapping for custom task', () => {
     jit.mappings = {
       foo: 'custom/foo.js'
     };
@@ -172,7 +172,7 @@ describe('Plugin find', function () {
       ['foo', path.resolve('custom/foo.js'), true]);
   });
 
-  it('Other node_modules dir', function () {
+  it('Other node_modules dir', () => {
     jit.pluginsRoot = 'other/dir';
 
     existsSync.withArgs(path.resolve('other/dir/grunt-contrib-foo/tasks')).returns(false);
