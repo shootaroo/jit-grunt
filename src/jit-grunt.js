@@ -1,28 +1,28 @@
 'use strict';
-var fs = require('fs');
-var path = require('path');
+const fs = require('fs');
+const path = require('path');
 
-var PREFIXES = ['', 'grunt-', 'grunt-contrib-'];
-var EXTENSIONS = ['.coffee', '.js'];
+const PREFIXES = ['', 'grunt-', 'grunt-contrib-'];
+const EXTENSIONS = ['.coffee', '.js'];
 
-var jit = {
+const jit = {
   pluginsRoot: 'node_modules',
   mappings: {}
 };
 
 
 jit.findUp = (cwd, iterator) => {
-  var result = iterator(cwd);
+  let result = iterator(cwd);
   if (result) {
     return result;
   }
-  var parent = path.resolve(cwd, '..');
+  let parent = path.resolve(cwd, '..');
   return parent !== cwd ? jit.findUp(parent, iterator) : null;
 };
 
 
 jit.findPlugin = function (taskName) {
-  var pluginName, taskPath;
+  let pluginName, taskPath;
 
   // Static Mappings
   if (this.mappings.hasOwnProperty(taskName)) {
@@ -33,9 +33,9 @@ jit.findPlugin = function (taskName) {
         return this.loadPlugin(taskName, taskPath, true);
       }
     } else {
-      var dir = path.join(this.pluginsRoot, pluginName, 'tasks');
+      let dir = path.join(this.pluginsRoot, pluginName, 'tasks');
       taskPath = this.findUp(path.resolve(), function (cwd) {
-        var findPath = path.join(cwd, dir);
+        let findPath = path.join(cwd, dir);
         return fs.existsSync(findPath) ? findPath : null;
       });
       if (taskPath) {
@@ -46,7 +46,7 @@ jit.findPlugin = function (taskName) {
 
   // Custom Tasks
   if (this.customTasksDir) {
-    for (var i = EXTENSIONS.length; i--;) {
+    for (let i = EXTENSIONS.length; i--;) {
       taskPath = path.join(this.customTasksDir, taskName + EXTENSIONS[i]);
       if (fs.existsSync(taskPath)) {
         return this.loadPlugin(taskName, taskPath, true);
@@ -55,11 +55,11 @@ jit.findPlugin = function (taskName) {
   }
 
   // Auto Mappings
-  var dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
+  let dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
   taskPath = this.findUp(path.resolve(), cwd => {
-    for (var p = PREFIXES.length; p--;) {
+    for (let p = PREFIXES.length; p--;) {
       pluginName = PREFIXES[p] + dashedName;
-      var findPath = path.join(cwd, this.pluginsRoot, pluginName, 'tasks');
+      let findPath = path.join(cwd, this.pluginsRoot, pluginName, 'tasks');
       if (fs.existsSync(findPath)) {
         return findPath;
       }
@@ -78,9 +78,9 @@ See`.yellow, `https://github.com/shootaroo/jit-grunt#static-mappings
 
 
 jit.loadPlugin = function (name, path, isFile) {
-  var grunt = this.grunt;
-  var _write = grunt.log._write;
-  var _nameArgs = grunt.task.current.nameArgs;
+  let grunt = this.grunt;
+  let _write = grunt.log._write;
+  let _nameArgs = grunt.task.current.nameArgs;
   grunt.task.current.nameArgs = 'loading ' + name;
   if (this.hideHeader) {
     grunt.log._write = () => {};
@@ -89,7 +89,7 @@ jit.loadPlugin = function (name, path, isFile) {
   grunt.log._write = _write;
 
   if (isFile) {
-    var fn = require(path);
+    let fn = require(path);
     if (typeof fn === 'function') {
       fn.call(grunt, grunt);
     }
@@ -105,7 +105,7 @@ jit.proxy = function (name) {
     task: {
       name: name,
       fn: function () {
-        var thing = jit._taskPlusArgs.call(jit.grunt.task, name);
+        let thing = jit._taskPlusArgs.call(jit.grunt.task, name);
         if (!thing.task) {
           jit.findPlugin(thing.args[0]);
           thing = jit._taskPlusArgs.call(jit.grunt.task, name);
@@ -138,7 +138,7 @@ module.exports = (grunt, mappings) => {
     grunt.util.task.Task.prototype._taskPlusArgs = jit.proxy;
   }
 
-  for (var key in mappings) {
+  for (let key in mappings) {
     if (mappings.hasOwnProperty(key)) {
       jit.mappings[key] = mappings[key];
     }

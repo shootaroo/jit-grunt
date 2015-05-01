@@ -1,14 +1,14 @@
 /* global describe, beforeEach, it */
 'use strict';
-var fs = require('fs');
-var path = require('path');
-var assert = require('power-assert');
-var grunt = require('grunt');
-var jit = require('../lib/jit-grunt')(grunt);
+const fs = require('fs');
+const path = require('path');
+const assert = require('power-assert');
+const grunt = require('grunt');
+const jit = require('../lib/jit-grunt')(grunt);
 
-var sinon = require('sinon');
-var existsSync = sinon.stub(fs, 'existsSync');
-var loadPlugin = sinon.stub(jit, 'loadPlugin');
+const sinon = require('sinon');
+const existsSync = sinon.stub(fs, 'existsSync');
+const loadPlugin = sinon.stub(jit, 'loadPlugin');
 
 describe('Plugin find', () => {
 
