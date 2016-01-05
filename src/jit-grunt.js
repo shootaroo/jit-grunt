@@ -7,7 +7,8 @@ const EXTENSIONS = ['.coffee', '.js'];
 
 const jit = {
   pluginsRoot: 'node_modules',
-  mappings: {}
+  mappings: {},
+  cwd: process.cwd()
 };
 
 
@@ -28,13 +29,13 @@ jit.findPlugin = function (taskName) {
   if (this.mappings.hasOwnProperty(taskName)) {
     pluginName = this.mappings[taskName];
     if (pluginName.indexOf('/') >= 0 && pluginName.indexOf('@') !== 0) {
-      taskPath = path.resolve(pluginName);
+      taskPath = path.resolve(this.cwd, pluginName);
       if (fs.existsSync(taskPath)) {
         return this.loadPlugin(taskName, taskPath, true);
       }
     } else {
       let dir = path.join(this.pluginsRoot, pluginName, 'tasks');
-      taskPath = this.findUp(path.resolve(), function (cwd) {
+      taskPath = this.findUp(this.cwd, function (cwd) {
         let findPath = path.join(cwd, dir);
         return fs.existsSync(findPath) ? findPath : null;
       });
@@ -56,7 +57,7 @@ jit.findPlugin = function (taskName) {
 
   // Auto Mappings
   let dashedName = taskName.replace(/([A-Z])/g, '-$1').replace(/_+/g, '-').toLowerCase();
-  taskPath = this.findUp(path.resolve(), cwd => {
+  taskPath = this.findUp(this.cwd, cwd => {
     for (let p = PREFIXES.length; p--;) {
       pluginName = PREFIXES[p] + dashedName;
       let findPath = path.join(cwd, this.pluginsRoot, pluginName, 'tasks');

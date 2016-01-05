@@ -104,12 +104,19 @@ require('jit-grunt')(grunt, {
 
 ### Options
 
+#### cwd
+
+Type: `Strong`
+Default: `process.cwd()`
+
+All plugins and tasks are resolved relative to this path.
+
 #### pluginsRoot
 
 Type: `String`  
 Default: `'node_modules'`
 
-Root directory of grunt plugins.
+Root directory of grunt plugins, relative to the working directory.
 
 ```js
 require('jit-grunt')(grunt)({
@@ -122,7 +129,7 @@ require('jit-grunt')(grunt)({
 Type: `String`  
 Default: `null`
 
-JIT Loading for custom tasks dir (replacement of [grunt.loadTasks]).
+JIT Loading for custom tasks dir (replacement of [grunt.loadTasks]), relative to the working directory..
 
 ```js
 require('jit-grunt')(grunt)({

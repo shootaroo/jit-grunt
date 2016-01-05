@@ -18,5 +18,10 @@ module.exports = function (grunt, mappings) {
     if (options.pluginsRoot) {
       jit.pluginsRoot = options.pluginsRoot;
     }
+
+    if (options.cwd) {
+      jit.cwd = options.cwd;
+    }
+
   };
 };
