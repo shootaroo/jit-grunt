@@ -25,9 +25,13 @@
     "url": "git://github.com/shootaroo/jit-grunt.git"
   },
   "scripts": {
+    "test": "npm-run-all build -p lint mocha",
     "build": "babel src -d lib",
     "watch": "babel src -d lib --watch",
-    "test": "npm run build && grunt",
+    "jscs": "grunt jscs",
+    "jshint": "grunt jshint",
+    "lint": "npm-run-all -p jscs jshint",
+    "mocha": "grunt mochaTest",
     "precommit": "npm test",
     "prepush": "npm test"
   },
@@ -40,9 +44,9 @@
     "grunt-jscs": "~1.8.0",
     "grunt-mocha-test": "~0.12.0",
     "husky": "~0.8.0",
+    "npm-run-all": "^1.5.1",
     "power-assert": "~0.11.0",
-    "sinon": "~1.14.0",
-    "time-grunt": "~1.2.0"
+    "sinon": "~1.14.0"
   },
   "peerDependencies": {
     "grunt": ">=0.4.0"
